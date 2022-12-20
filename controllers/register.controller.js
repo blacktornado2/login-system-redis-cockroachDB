@@ -1,3 +1,5 @@
+import jwt from "jsonwebtoken";
+
 import client from "../config/configDB.js";
 
 export const registerUser = async (req, res) => {
@@ -28,8 +30,13 @@ export const registerUser = async (req, res) => {
         password
     });
 
+    const token = jwt.sign({ username: username }, process.env.JWT_SECRET_KEY, {
+        expiresIn: 60
+    });
+
     return res.json({
         status: "registration successful",
-        message: "User registered successfully"
+        message: "User registered successfully",
+        token: token
     });
 };

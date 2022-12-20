@@ -1,5 +1,6 @@
-import client from "../config/configDB.js";
 import jwt from "jsonwebtoken";
+
+import client from "../config/configDB.js";
 
 export const loginUser = async (req, res) => {
     const { username, password } = req.body;
@@ -31,9 +32,13 @@ export const loginUser = async (req, res) => {
         });
     }
 
+    const token = jwt.sign({ username: username }, process.env.JWT_SECRET_KEY, {
+        expiresIn: 60 * 60
+    });
+
     return res.json({
         status: "Login successful",
         message: "Login successful. Please continue",
-        token: ""
+        token: token
     });
 };
