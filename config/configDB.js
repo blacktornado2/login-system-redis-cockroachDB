@@ -1,11 +1,7 @@
 import Knex from "knex";
 
-const connectDB = DB_CONNECTION_URL => {
-    const client = new Knex({
-        client: "pg",
-        connection: DB_CONNECTION_URL
-    });
-    return client;
-};
+import knexfile from "./knexfile.js";
 
-export default connectDB;
+const db = Knex(knexfile.development);
+
+export default db;

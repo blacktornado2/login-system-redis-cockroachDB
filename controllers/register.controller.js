@@ -1,11 +1,6 @@
-import connectDB from "../config/configDB.js";
-import { config } from "dotenv";
-config();
-
-const client = connectDB(process.env.DB_CONNECTION_URL);
+import client from "../config/configDB.js";
 
 export const registerUser = async (req, res) => {
-    console.log(`registerUser called`);
     const { username, password } = req.body;
 
     if (!username || !password) {
@@ -15,11 +10,26 @@ export const registerUser = async (req, res) => {
         });
     }
 
-    // if username is already registered
-    const rows = await client("Users").select("username", "password").where({
-        username: username
+    const rows = await client("users").select(["username", "password"]).where({
+        username
     });
-    console.log(rows);
+
+    // if username is already registered
+    if (rows.length) {
+        return res.json({
+            status: "registration failed",
+            message: "User already registered"
+        });
+    }
 
     // Registration successful
+    await client("users").insert({
+        username,
+        password
+    });
+
+    return res.json({
+        status: "registration successful",
+        message: "User registered successfully"
+    });
 };
