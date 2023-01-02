@@ -5,19 +5,27 @@
   "type": "module",
   "main": "app.js",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.3.0",
-    "pg": "^8.8.0"
+    "pg": "^8.8.0",
+    "redis": "^4.5.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.20",
+    "nyc": "^15.1.0",
+    "sinon": "^15.0.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "devStart": "nodemon app.js"
+    "devStart": "nodemon app.js",
+    "test": "mocha ./controllers/*.test.js",
+    "mocha": "./node_modules/mocha/bin/mocha.js ./test/*.test.js --exit",
+    "coverage": "nyc --reporter=text npm run mocha"
   },
   "keywords": [],
   "author": "",

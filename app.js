@@ -4,7 +4,8 @@ import { config } from "dotenv";
 
 import loginRoutes from "./routes/login.routes.js";
 import registerRoutes from "./routes/register.routes.js";
-import { isNotLoggedIn } from "./middlewares/auth.middleware.js";
+// import { isNotLoggedIn } from "./middlewares/auth.middleware.js";
+import redis from './config/redis.js'
 
 config();
 const PORT = process.env.PORT || 5000;
@@ -16,6 +17,13 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/register", registerRoutes);
 app.use("/login", loginRoutes);
+
+const connectRedis =  async () => {
+    await redis.connect();
+    console.log(`Redis connected`);
+};
+
+connectRedis();
 
 app.listen(PORT, () => {
     console.log(`Server is listening on PORT: ${PORT}`);
