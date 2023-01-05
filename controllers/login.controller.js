@@ -10,7 +10,7 @@ export const loginUser = async (req, res) => {
     // Incomplete credentials
     if (!username || !password) {
         return res.json({
-            status: "login failed",
+            status: "Login failed",
             message: "Provide all details required"
         });
     }
@@ -19,7 +19,7 @@ export const loginUser = async (req, res) => {
 
     if (user) {
         const comparePassword = await bcrypt.compare(password, user.password);
-        
+
         if(!comparePassword) {
             return res.json({
                 status: "Login failed",
@@ -36,7 +36,7 @@ export const loginUser = async (req, res) => {
                 message: "Login successful. Please continue",
                 token: user.token
             });
-        }
+        };
     };
 
     const rows = await client("users")
@@ -46,7 +46,7 @@ export const loginUser = async (req, res) => {
     // if username not found
     if (!rows.length) {
         return res.json({
-            status: "login failed",
+            status: "Login failed",
             message: "User not found. Please verify username"
         });
     }
@@ -54,7 +54,7 @@ export const loginUser = async (req, res) => {
     // if password is incorrect
     if (password !== rows[0].password) {
         return res.json({
-            status: "login failed",
+            status: "Login failed",
             message: "Password incorrect"
         });
     }

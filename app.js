@@ -4,6 +4,7 @@ import { config } from "dotenv";
 
 import loginRoutes from "./routes/login.routes.js";
 import registerRoutes from "./routes/register.routes.js";
+import adminRoutes from "./routes/admin.routes.js";
 // import { isNotLoggedIn } from "./middlewares/auth.middleware.js";
 import redis from './config/redis.js'
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/register", registerRoutes);
 app.use("/login", loginRoutes);
+app.use("/admin", adminRoutes);
 
 const connectRedis =  async () => {
     await redis.connect();

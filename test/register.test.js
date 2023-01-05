@@ -2,6 +2,8 @@ import { expect } from "chai";
 import sinon from 'sinon';
 
 import { registerUser } from '../controllers/register.controller.js'
+import redis from '../config/redis.js';
+import client from '../config/configDB.js';
 
 describe('When the user tries to register', () => {
 
@@ -21,7 +23,7 @@ describe('When the user tries to register', () => {
     })
 
 
-    it('should return invalid credentials', async () => {
+    it('When request doesnt contain username or password', async () => {
         const res = {
             json: (data) => {
                 return data;
@@ -29,14 +31,34 @@ describe('When the user tries to register', () => {
         };
 
         const result = {
-            status: "login failed",
+            status: "Registration failed",
             message: "Provide all details required"
         };
-        console.log(`Hello`);
+
         req.body = {};
 
         const x = await registerUser(req, res);
-        console.log(x);
-        expect(2).to.be.equal(4-2);
-    })
-})
+        expect(result).to.eql(x);
+    });
+
+    it.skip('When the user is already registered', async () => {
+        
+         const res = {
+            json: (data) => {
+                return data;
+            }
+        };
+
+        const result = {
+            status: "Registration failed",
+            message: "User already registered"
+        };
+
+        const dbStub = sinon.stub(client, 'select').returns({
+            
+        });
+        const x = await registerUser(req, res);
+       
+        expect(x).to.eql(result);
+    });
+});

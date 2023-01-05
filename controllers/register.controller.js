@@ -9,10 +9,10 @@ export const registerUser = async (req, res) => {
 
     if (!username || !password) {
         return res.json({
-            status: "registration failed",
+            status: "Registration failed",
             message: "Provide all details required"
         });
-    }
+    };
 
     const rows = await client("users").select(["username", "password"]).where({
         username
@@ -21,7 +21,7 @@ export const registerUser = async (req, res) => {
     // if username is already registered
     if (rows.length) {
         return res.json({
-            status: "registration failed",
+            status: "Registration failed",
             message: "User already registered"
         });
     }
@@ -35,7 +35,7 @@ export const registerUser = async (req, res) => {
     });
 
     const token = jwt.sign({ username: username }, process.env.JWT_SECRET_KEY, {
-        expiresIn: 60
+        expiresIn: 60*5
     });
 
     const now = new Date();
@@ -48,7 +48,7 @@ export const registerUser = async (req, res) => {
     }));
 
     return res.json({
-        status: "registration successful",
+        status: "Registration successful",
         message: "User registered successfully",
         token: token
     });

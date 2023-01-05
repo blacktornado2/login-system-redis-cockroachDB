@@ -1,1 +1,0 @@
-{"parent":null,"pid":4627,"argv":["/usr/local/bin/node","/usr/local/bin/npm","run","mocha"],"execArgv":[],"cwd":"/Users/ankitb/Project/login-app","time":1672656568265,"ppid":4621,"coverageFilename":"/Users/ankitb/Project/login-app/.nyc_output/b5f2db8f-858d-4a7b-a1c2-969397bece17.json","externalId":"","uuid":"b5f2db8f-858d-4a7b-a1c2-969397bece17","files":[]}
