@@ -5,6 +5,10 @@ import { registerUser } from '../controllers/register.controller.js'
 import redis from '../config/redis.js';
 import client from '../config/configDB.js';
 
+
+describe('API call', () => {
+
+
 describe('When the user tries to register', () => {
 
     let req = {};
@@ -41,7 +45,7 @@ describe('When the user tries to register', () => {
         expect(result).to.eql(x);
     });
 
-    it.skip('When the user is already registered', async () => {
+    it('When the user is already registered', async () => {
         
          const res = {
             json: (data) => {
@@ -54,11 +58,13 @@ describe('When the user tries to register', () => {
             message: "User already registered"
         };
 
-        const dbStub = sinon.stub(client, 'select').returns({
+        const dbStub = sinon.stub(client, 'select').resolves([
             
-        });
+        ]);
         const x = await registerUser(req, res);
        
         expect(x).to.eql(result);
     });
+});
+
 });

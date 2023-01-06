@@ -17,7 +17,7 @@ export const registerUser = async (req, res) => {
     const rows = await client("users").select(["username", "password"]).where({
         username
     });
-
+    console.log(rows);
     // if username is already registered
     if (rows.length) {
         return res.json({

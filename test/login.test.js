@@ -4,6 +4,8 @@ import sinon from 'sinon';
 import { loginUser } from '../controllers/login.controller.js'
 import redis from '../config/redis.js'
 
+describe('API call', () => {
+
 
 describe('When the user tries to login', () => {
 
@@ -59,8 +61,12 @@ describe('When the user tries to login', () => {
         expect(result).to.eql(x);
     });
 
-    it('When the username and password is correct, user logins and a new token is generated', () => {
+    // it.skip('When the username and password is correct, user logins and a new token is generated', () => {
 
+    //     sinon.stub(redis, 'get').resolves(null);
+    //     sinon.stub(client, 'select').resol
 
-    });
+    // });
+});
+
 });
